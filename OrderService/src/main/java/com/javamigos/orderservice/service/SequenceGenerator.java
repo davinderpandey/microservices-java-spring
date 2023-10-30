@@ -1,6 +1,6 @@
 package com.javamigos.orderservice.service;
 
-import com.javamigos.orderservice.entity.Sequence;
+import com.javamigos.orderservice.entity.DatabaseSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -17,21 +17,19 @@ import static org.springframework.data.mongodb.core.query.Query.*;
 
 @Service
 public class SequenceGenerator {
-    @Autowired
     private MongoOperations mongoOperations;
 
-    /*public int generateNextOrderId() {
-        Sequence counter = mongoOperations.findAndModify(
-                query(where("_id").is("sequence")),
-                new Update().inc("seq", 1),
-                options().returnNew(true).upsert(true), Sequence.class);
-        return counter.getSequence();
-    }*/
-    public int generateSequence(String seqName) {
-        Sequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
-                new Update().inc("seq",1), options().returnNew(true).upsert(true),
-                Sequence.class);
-        return !Objects.isNull(counter) ? counter.getSeqNo() : 1;
+    @Autowired
+    public SequenceGenerator(MongoOperations mongoOperations) {
+        this.mongoOperations = mongoOperations;
+    }
+
+    public long generateSequence(String seqName) {
+
+        DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
+                new Update().inc("seq", 1), options().returnNew(true).upsert(true),
+                DatabaseSequence.class);
+        return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
 
 }

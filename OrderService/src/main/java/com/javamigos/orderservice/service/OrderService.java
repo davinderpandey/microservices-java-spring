@@ -24,9 +24,9 @@ public class OrderService {
 
 
     public OrderDto saveOrderInDB(OrderDtoFromFE orderDetails) {
-        int newOrderId= sequenceGenerator.generateSequence(Order.SEQUENCE_NAME);
+        Long newOrderId= sequenceGenerator.generateSequence(Order.SEQUENCE_NAME);
         UserDto userDto = fetchUserFromUserMS(orderDetails.getUserId());
-        Order orderToBeSaved= new Order( newOrderId,orderDetails.getFoodItemDtoList(),orderDetails.getRestaurant(),userDto);
+        Order orderToBeSaved= new Order( newOrderId,orderDetails.getFoodItemsList(),orderDetails.getRestaurant(),userDto);
         orderRepository.save(orderToBeSaved);
         return OrderMapper.INSTANCE.mapOrderToOrderDto(orderToBeSaved);
     }

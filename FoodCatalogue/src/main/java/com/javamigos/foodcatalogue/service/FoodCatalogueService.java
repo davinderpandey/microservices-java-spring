@@ -26,7 +26,7 @@ public class FoodCatalogueService {
         return FoodItemMapper.INSTANCE.mapFoodItemToFoodItemDto(savedFoodItem);
     }
 
-    public FoodCataloguePage fetchFoodCatalogue(Integer restaurantId) {
+    public FoodCataloguePage fetchFoodCatalogueDetails(Integer restaurantId) {
         List<FoodItem> foodItemList= fetchFoodItemList(restaurantId);
         Restaurant restaurant= fetchRestaurantDetailsFromRMS(restaurantId);
         return createFoodCataloguePage(foodItemList,restaurant);

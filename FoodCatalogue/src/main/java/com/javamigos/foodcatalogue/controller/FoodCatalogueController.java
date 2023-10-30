@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/foodCatalogue")
+@CrossOrigin
 public class FoodCatalogueController {
     @Autowired
     FoodCatalogueService foodCatalogueService;
@@ -21,9 +22,9 @@ public class FoodCatalogueController {
         return new ResponseEntity<>(savedFoodItem, HttpStatus.CREATED);
     }
 
-    @GetMapping("fetchFoodCatalogueByRestaurantId/{restaurantId}")
-    public ResponseEntity<FoodCataloguePage> fetchFoodCataloguePage(@PathVariable Integer restaurantId ){
-        return new ResponseEntity<>(foodCatalogueService.fetchFoodCatalogue(restaurantId),HttpStatus.OK);
+    @GetMapping("/fetchRestaurantAndFoodItemById/{restaurantId}")
+    public ResponseEntity<FoodCataloguePage> fetchRestaurantAndFoodItemById(@PathVariable("restaurantId") Integer restaurantId ){
+        return new ResponseEntity<>(foodCatalogueService.fetchFoodCatalogueDetails(restaurantId),HttpStatus.OK);
     }
 
 

@@ -22,7 +22,7 @@ public class Order {
     public static final String SEQUENCE_NAME="user_sequence";
 
     @Id
-    private int orderId;
+    private Long orderId;
     private List<FoodItemDto> foodItemDtoList;
     private Restaurant restaurant;
     private UserDto userDto;
